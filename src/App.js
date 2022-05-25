@@ -8,14 +8,24 @@ import { toCurrency } from "./helper/basic_helper"
 function App() {
   let [data, setData] = useState([])
   let [page, setPage] = useState(1)
+  let [pageCount, setPageCount] = useState(1)
+  let [dataCount, setDataCount] = useState(1)
+
+  let perPage = 10
   let firstPage = page == 1
+  let lastPage = page == pageCount
+  let offset = (page - 1) * perPage
+  let noFrom = offset + 1,
+    noTo = offset + perPage
 
   useEffect(() => {
     axios
       .get(`${BASE_API}/all?page=${page}`)
-      .then(({ data }) => {
-        console.log("sukses", data)
-        setData(data)
+      .then(({ data: res }) => {
+        console.log("sukses", res)
+        setData(res.data)
+        setPageCount(res.pageCount)
+        setDataCount(res.dataCount)
       })
       .catch((err) => {
         console.log("Err saat get data all", err.response?.data ?? err.message)
@@ -26,7 +36,9 @@ function App() {
     setPage(page + 1)
   }
 
-  const prevPage = () => {setPage(page-1)}
+  const prevPage = () => {
+    setPage(page - 1)
+  }
 
   return (
     <React.Fragment>
@@ -157,9 +169,9 @@ function App() {
 
       <div className="flex flex-col items-center pb-12">
         <span className="text-sm text-white dark:text-white">
-          Showing <span className="font-semibold text-white">1</span> to{" "}
-          <span className="font-semibold text-white">10</span> of{" "}
-          <span className="font-semibold text-white">100</span> Entries
+          Showing <span className="font-semibold text-white">{noFrom}</span> to{" "}
+          <span className="font-semibold text-white">{noTo}</span> of{" "}
+          <span className="font-semibold text-white">{toCurrency(dataCount)}</span> Entries
         </span>
         {/* <button type="button" class="focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900">Purple</button> */}
 
@@ -187,9 +199,15 @@ function App() {
             </svg>
             Prev
           </button>
+
           <button
+            disabled={lastPage}
             onClick={nextPage}
-            className="inline-flex items-center py-2 px-4 text-sm font-medium text-white  rounded-r bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 dark:focus:ring-purple-900"
+            className={`inline-flex items-center py-2 px-4 text-sm font-medium text-white  rounded-r bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 dark:focus:ring-purple-900 ${
+              lastPage
+                ? "cursor-not-allowed bg-slate-400 text-dark"
+                : "hover:bg-purple-800 bg-purple-700 text-white"
+            }`}
           >
             Next
             <svg
