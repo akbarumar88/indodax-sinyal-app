@@ -72,9 +72,9 @@ const Pagination = (props) => {
             <React.Fragment>
               <li onClick={_ => onPageChange(pageNumber)} style={{display:'inherit'}}>
                 <a
-                  href="#"
+                  href="#!"
                 //   className=""
-                  className={classnames("py-2 px-3 leading-tight text-slate-900 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-100 dark:hover:bg-gray-700 dark:hover:text-white", {
+                  className={classnames("py-2 px-3 leading-tight text-slate-900 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-100 dark:hover:bg-gray-700 dark:hover:text-white font-medium", {
                       'rounded-r-lg': pageNumber==lastPage,
                       'rounded-l-lg': pageNumber==1,
                       'dark:bg-purple-700': pageNumber==currentPage
