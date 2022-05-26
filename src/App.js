@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react"
 import axios from "axios"
 import { BASE_API } from "./GlobalVar"
 import { toCurrency } from "./helper/basic_helper"
+import Pagination from "./components/Pagination"
 
 function App() {
   let [data, setData] = useState([])
@@ -16,7 +17,7 @@ function App() {
   let lastPage = page == pageCount
   let offset = (page - 1) * perPage
   let noFrom = offset + 1,
-    noTo = offset + perPage
+    noTo = offset + data.length
 
   useEffect(() => {
     axios
@@ -169,15 +170,82 @@ function App() {
 
       <div className="flex flex-col items-center pb-12">
         <span className="text-sm text-white dark:text-white">
-          Showing <span className="font-semibold text-white">{noFrom}</span> to{" "}
-          <span className="font-semibold text-white">{noTo}</span> of{" "}
-          <span className="font-semibold text-white">{toCurrency(dataCount)}</span> Entries
+          Showing{" "}
+          <span className="font-semibold text-white">{toCurrency(noFrom)}</span>{" "}
+          to{" "}
+          <span className="font-semibold text-white">{toCurrency(noTo)}</span>{" "}
+          of{" "}
+          <span className="font-semibold text-white">
+            {toCurrency(dataCount)}
+          </span>{" "}
+          Entries
         </span>
         {/* <button type="button" class="focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900">Purple</button> */}
 
+        {/* Component untuk Pagination */}
+        <Pagination
+          className="pagination-bar"
+          currentPage={page}
+          totalCount={dataCount}
+          pageSize={perPage}
+          onPageChange={(page) => setPage(page)}
+        />
+
         <div className="inline-flex mt-2 xs:mt-0">
           <button
+            disabled={firstPage}
             onClick={prevPage}
+            className={`inline-flex items-center py-2 px-4 text-sm font-medium text-white  rounded-l bg-purple-700 focus:ring-4 focus:ring-purple-300 dark:focus:ring-purple-900 ${
+              firstPage
+                ? "cursor-not-allowed bg-slate-400 text-dark"
+                : "hover:bg-purple-800 bg-purple-700 text-white"
+            }`}
+          >
+            Prev
+            <svg
+              className="ml-2 w-5 h-5"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z"
+                clip-rule="evenodd"
+              ></path>
+            </svg>
+          </button>
+          <button
+            disabled={lastPage}
+            onClick={nextPage}
+            className={`inline-flex items-center py-2 px-4 text-sm font-medium text-white  rounded-r bg-purple-700 focus:ring-4 focus:ring-purple-300 dark:focus:ring-purple-900 ${
+              lastPage
+                ? "cursor-not-allowed bg-slate-400 text-dark"
+                : "hover:bg-purple-800 bg-purple-700 text-white"
+            }`}
+          >
+            Next
+            <svg
+              className="ml-2 w-5 h-5"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z"
+                clip-rule="evenodd"
+              ></path>
+            </svg>
+          </button>
+        </div>
+
+        {/* Tombol Goto First Page & Go to Last Page */}
+        <div className="inline-flex mt-2 xs:mt-0">
+          <button
+            onClick={() => {
+              setPage(1)
+            }}
             disabled={firstPage}
             className={`inline-flex items-center py-2 px-4 text-sm font-medium   rounded-l  focus:ring-4 focus:ring-purple-300 dark:focus:ring-purple-900 ${
               firstPage
@@ -197,19 +265,21 @@ function App() {
                 clip-rule="evenodd"
               ></path>
             </svg>
-            Prev
+            Go to First Page
           </button>
 
           <button
             disabled={lastPage}
-            onClick={nextPage}
-            className={`inline-flex items-center py-2 px-4 text-sm font-medium text-white  rounded-r bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 dark:focus:ring-purple-900 ${
+            onClick={() => {
+              setPage(pageCount)
+            }}
+            className={`inline-flex items-center py-2 px-4 text-sm font-medium text-white  rounded-r bg-purple-700 focus:ring-4 focus:ring-purple-300 dark:focus:ring-purple-900 ${
               lastPage
                 ? "cursor-not-allowed bg-slate-400 text-dark"
                 : "hover:bg-purple-800 bg-purple-700 text-white"
             }`}
           >
-            Next
+            Go to Last Page
             <svg
               className="ml-2 w-5 h-5"
               fill="currentColor"
