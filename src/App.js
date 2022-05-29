@@ -33,7 +33,7 @@ function App() {
     const data = {
       page,
       tglawal: tglAwal,
-      tglakhir: tglAkhir
+      tglakhir: tglAkhir,
     }
     const params = new URLSearchParams(data)
     axios
@@ -119,11 +119,11 @@ function App() {
               type="date"
               className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder="Select date end"
-              onChange={(e) => { 
+              onChange={(e) => {
                 let newDate = e.target.value
                 setTglAkhirTemp(newDate)
                 // console.log(newDate)
-               }}
+              }}
             />
           </div>
 
@@ -214,7 +214,19 @@ function App() {
                       lastsell,
                       jenis,
                     }) => {
-                      let warnaJenis = jenis == "crash" ? "bg-rose-500" : "bg-green-500";
+                      let warnaJenis
+                      switch (jenis) {
+                        case "crash":
+                          warnaJenis = "bg-rose-500"
+                          break
+
+                        case "moon":
+                          warnaJenis = "bg-green-500"
+                          break
+
+                        default:
+                          break
+                      }
                       return (
                         <tr>
                           <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
@@ -247,7 +259,9 @@ function App() {
                           <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-right">
                             {toCurrency(lastsell)}
                           </td>
-                          <td className={`border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-right font-semibold ${warnaJenis}`}>
+                          <td
+                            className={`border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-right font-semibold ${warnaJenis}`}
+                          >
                             {jenis?.toUpperCase()}
                           </td>
                         </tr>
