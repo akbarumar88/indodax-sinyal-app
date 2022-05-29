@@ -5,12 +5,18 @@ import axios from "axios"
 import { BASE_API } from "./GlobalVar"
 import { toCurrency } from "./helper/basic_helper"
 import Pagination from "./components/Pagination"
+import Datepicker from "flowbite-datepicker/Datepicker"
+import DateRangePicker from "flowbite-datepicker/DateRangePicker"
 
 function App() {
   let [data, setData] = useState([])
   let [page, setPage] = useState(1)
   let [pageCount, setPageCount] = useState(1)
   let [dataCount, setDataCount] = useState(1)
+  let [tglAwal, setTglAwal] = useState("")
+  let [tglAwalTemp, setTglAwalTemp] = useState("")
+  let [tglAkhir, setTglAkhir] = useState("")
+  let [tglAkhirTemp, setTglAkhirTemp] = useState("")
 
   let perPage = 10
   let firstPage = page == 1
@@ -19,9 +25,19 @@ function App() {
   let noFrom = offset + 1,
     noTo = offset + data.length
 
+  // const dateRangePickerEl = document.getElementById("dateRangePickerId")
+  // new DateRangePicker(dateRangePickerEl, {
+  //   // options
+  // })
   useEffect(() => {
+    const data = {
+      page,
+      tglawal: tglAwal,
+      tglakhir: tglAkhir
+    }
+    const params = new URLSearchParams(data)
     axios
-      .get(`${BASE_API}/all?page=${page}`)
+      .get(`${BASE_API}/all?${params.toString()}`)
       .then(({ data: res }) => {
         console.log("sukses", res)
         setData(res.data)
@@ -31,7 +47,7 @@ function App() {
       .catch((err) => {
         console.log("Err saat get data all", err.response?.data ?? err.message)
       })
-  }, [page])
+  }, [page, tglAwal, tglAkhir])
 
   const nextPage = () => {
     setPage(page + 1)
@@ -41,9 +57,85 @@ function App() {
     setPage(page - 1)
   }
 
+  const cari = () => {
+    setTglAwal(tglAwalTemp)
+    setTglAkhir(tglAkhirTemp)
+    setPage(1)
+  }
+
   return (
     <React.Fragment>
-      <section className="relative pt-16 pb-0 bg-blueGray-50">
+      {/* Date range Picker */}
+      <section
+        className="relative pt-16 pb-0 bg-blueGray-50"
+        id="dateRangePickerId"
+      >
+        <div date-rangepicker className="flex items-center px-4 mb-4">
+          <div className="relative">
+            <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+              <svg
+                className="w-5 h-5 text-gray-500 dark:text-gray-400"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z"
+                  clip-rule="evenodd"
+                ></path>
+              </svg>
+            </div>
+            <input
+              name="start"
+              type="date"
+              className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              placeholder="Select date start"
+              onChange={(e) => {
+                let newDate = e.target.value
+                setTglAwalTemp(newDate)
+                // console.log(newDate)
+              }}
+            />
+          </div>
+          <span className="mx-4 text-white">to</span>
+          <div className="relative">
+            <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+              <svg
+                className="w-5 h-5 text-gray-500 dark:text-gray-400"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z"
+                  clip-rule="evenodd"
+                ></path>
+              </svg>
+            </div>
+            <input
+              name="end"
+              type="date"
+              className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              placeholder="Select date end"
+              onChange={(e) => { 
+                let newDate = e.target.value
+                setTglAkhirTemp(newDate)
+                // console.log(newDate)
+               }}
+            />
+          </div>
+
+          <button
+            onClick={cari}
+            type="button"
+            class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 ml-4 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+          >
+            Cari
+          </button>
+        </div>
+
         <div className="w-full mb-12 px-4">
           <div
             className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded 
@@ -122,6 +214,7 @@ function App() {
                       lastsell,
                       jenis,
                     }) => {
+                      let warnaJenis = jenis == "crash" ? "bg-rose-500" : "bg-green-500";
                       return (
                         <tr>
                           <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
@@ -143,19 +236,19 @@ function App() {
                             $ {toCurrency(hargausdt)}
                           </td>
                           <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-right">
-                            {volidr}
+                            {toCurrency(volidr, 10)}
                           </td>
                           <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-right">
-                            {volusdt}
+                            {toCurrency(volusdt)}
                           </td>
                           <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-right">
-                            {lastbuy}
+                            {toCurrency(lastbuy)}
                           </td>
                           <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-right">
-                            {lastsell}
+                            {toCurrency(lastsell)}
                           </td>
-                          <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-right">
-                            {jenis}
+                          <td className={`border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-right font-semibold ${warnaJenis}`}>
+                            {jenis?.toUpperCase()}
                           </td>
                         </tr>
                       )
@@ -180,7 +273,7 @@ function App() {
           </span>{" "}
           Entries
         </span>
-        {/* <button type="button" class="focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900">Purple</button> */}
+        {/* <button type="button" className="focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900">Purple</button> */}
 
         {/* Component untuk Pagination */}
         <Pagination
