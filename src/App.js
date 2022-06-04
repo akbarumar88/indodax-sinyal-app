@@ -8,6 +8,9 @@ import Pagination from "./components/Pagination"
 import Datepicker from "flowbite-datepicker/Datepicker"
 import DateRangePicker from "flowbite-datepicker/DateRangePicker"
 import FilterPeriode from "./components/FilterPeriode"
+import FilterView from "./components/FilterView"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCoffee, faFilter, faSearch } from '@fortawesome/free-solid-svg-icons'
 
 function App() {
   let [data, setData] = useState([])
@@ -16,6 +19,7 @@ function App() {
   let [dataCount, setDataCount] = useState(1)
   let [tglAwal, setTglAwal] = useState("")
   let [tglAkhir, setTglAkhir] = useState("")
+  let [filterViewVisible, setFilterViewVisible] = useState(false)
   console.log("currentPage", page)
 
   let perPage = 10
@@ -62,8 +66,18 @@ function App() {
     // setTglAkhir(tglAkhirTemp)
   }
 
+  console.log('fvv',filterViewVisible)
   return (
     <React.Fragment>
+      {/* Component Modal */}
+      <FilterView
+        visible={filterViewVisible}
+        onSubmit={() => {}}
+        onBtnClosePress={() => {
+          setFilterViewVisible(false)
+        }}
+      />
+
       {/* Date range Picker */}
       <section
         className="relative pt-16 pb-0 bg-blueGray-50"
@@ -77,6 +91,17 @@ function App() {
             setPage(1)
           }}
         />
+
+        <button
+          type="button"
+          class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 ml-4 dark:bg-purple-700 dark:hover:bg-purple-800 focus:outline-none dark:focus:ring-purple-900 mb-4"
+          onClick={() => {
+            setFilterViewVisible(true)
+          }}
+        >
+          Filter
+          <FontAwesomeIcon className="ml-2" icon={faFilter} />
+        </button>
 
         <div className="w-full mb-12 px-4">
           <div
