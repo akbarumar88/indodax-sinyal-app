@@ -18,14 +18,14 @@ const Pagination = (props) => {
     siblingCount,
     pageSize,
   })
-  console.warn(paginationRange, {
-    onPageChange,
-    totalCount,
-    siblingCount,
-    currentPage,
-    pageSize,
-    className,
-  })
+  // console.warn(paginationRange, {
+  //   onPageChange,
+  //   totalCount,
+  //   siblingCount,
+  //   currentPage,
+  //   pageSize,
+  //   className,
+  // })
 
   // If there are less than 2 times in pagination range we shall not render the component
   if (currentPage === 0 || paginationRange.length < 2) {
@@ -54,11 +54,12 @@ const Pagination = (props) => {
           <div className="arrow left" />
         </li> */}
 
-        {paginationRange.map((pageNumber) => {
+        {paginationRange.map((pageNumber, i) => {
           // If the pageItem is a DOT, render the DOTS unicode character
           if (pageNumber === DOTS) {
             return (
               <li
+                key={i}
                 className="pagination-item dots dark:text-gray-100"
                 style={{ marginLeft: 8, marginRight: 8 }}
               >
@@ -69,16 +70,27 @@ const Pagination = (props) => {
 
           // Render our Page Pills
           return (
-            <React.Fragment>
-              <li onClick={_ => onPageChange(pageNumber)} style={{display:'inherit'}}>
+            <React.Fragment key={i}>
+              <li
+                onClick={(_) => onPageChange(pageNumber)}
+                style={{ display: "inherit" }}
+              >
                 <a
                   href="#!"
-                //   className=""
-                  className={classnames("py-2 px-3 leading-tight text-slate-900 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-100 dark:hover:bg-gray-700 dark:hover:text-white font-medium", {
-                      'rounded-r-lg': pageNumber==lastPage,
-                      'rounded-l-lg': pageNumber==1,
-                      'dark:bg-purple-700': pageNumber==currentPage
-                  })}
+                  //   className=""
+                  className={classnames(
+                    {
+                      "dark:bg-purple-700 dark:hover:bg-purple-800":
+                        pageNumber == currentPage,
+                      "dark:bg-gray-800 dark:hover:bg-gray-700":
+                        pageNumber != currentPage,
+                    },
+                    "py-2 px-3 leading-tight text-slate-900 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700  dark:border-gray-700 dark:text-gray-100 dark:hover:text-white font-medium",
+                    {
+                      "rounded-r-lg": pageNumber == lastPage,
+                      "rounded-l-lg": pageNumber == 1,
+                    }
+                  )}
                 >
                   {pageNumber}
                 </a>
