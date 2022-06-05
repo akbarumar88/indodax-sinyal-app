@@ -1,3 +1,9 @@
+import {
+  faFilter,
+  faRupiahSign,
+  faDollarSign,
+} from "@fortawesome/free-solid-svg-icons"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import classNames from "classnames"
 import React from "react"
 
@@ -23,7 +29,7 @@ export default function FilterView(props) {
           <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
             <div class="flex justify-between items-center p-5 rounded-t border-b dark:border-gray-600">
               <h3 class="text-xl font-medium text-gray-900 dark:text-white">
-                Bottom right modal
+                Filter Lanjutan
               </h3>
               <button
                 type="button"
@@ -47,18 +53,249 @@ export default function FilterView(props) {
             </div>
 
             <div class="p-6 space-y-6">
-              <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-                With less than a month to go before the European Union enacts
-                new consumer privacy laws for its citizens, companies around the
-                world are updating their terms of service agreements to comply.
-              </p>
-              <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-                The European Union’s General Data Protection Regulation
-                (G.D.P.R.) goes into effect on May 25 and is meant to ensure a
-                common set of data rights in the European Union. It requires
-                organizations to notify users as soon as possible of high-risk
-                data breaches that could personally affect them.
-              </p>
+              <form>
+                <div class="grid gap-6 mb-6 lg:grid-cols-2">
+                  {/* Rentang harga IDR */}
+                  <div>
+                    <label
+                      for="input-group-1"
+                      class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                    >
+                      Rentang Harga (IDR)
+                    </label>
+                    <div class="flex">
+                      <span class="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 rounded-l-md border border-r-0 border-gray-300 dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
+                        Rp
+                      </span>
+                      <input
+                        type="number"
+                        id="website-admin"
+                        class="rounded-none rounded-r-lg bg-gray-50 border text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        placeholder="Dari"
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <label
+                      for="input-group-1"
+                      class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                    >
+                      {"."}
+                    </label>
+                    <div class="flex">
+                      <span class="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 rounded-l-md border border-r-0 border-gray-300 dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
+                        Rp
+                      </span>
+                      <input
+                        type="number"
+                        id="website-admin"
+                        class="rounded-none rounded-r-lg bg-gray-50 border text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        placeholder="Sampai"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Rentang Harga USDT */}
+                  <div>
+                    <label
+                      for="input-group-1"
+                      class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                    >
+                      Rentang Harga (USDT)
+                    </label>
+                    <div class="flex">
+                      <span class="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 rounded-l-md border border-r-0 border-gray-300 dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
+                        T
+                      </span>
+                      <input
+                        type="number"
+                        id="website-admin"
+                        class="rounded-none rounded-r-lg bg-gray-50 border text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        placeholder="Dari"
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <label
+                      for="input-group-1"
+                      class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                    >
+                      {"."}
+                    </label>
+                    <div class="flex">
+                      <span class="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 rounded-l-md border border-r-0 border-gray-300 dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
+                        T
+                      </span>
+                      <input
+                        type="number"
+                        id="website-admin"
+                        class="rounded-none rounded-r-lg bg-gray-50 border text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        placeholder="Sampai"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Rentang Volume IDR */}
+                  <div>
+                    <label
+                      for="input-group-1"
+                      class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                    >
+                      Rentang Volume (IDR)
+                    </label>
+                    <div class="flex">
+                      <span class="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 rounded-l-md border border-r-0 border-gray-300 dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
+                        Rp
+                      </span>
+                      <input
+                        type="number"
+                        id="website-admin"
+                        class="rounded-none rounded-r-lg bg-gray-50 border text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        placeholder="Dari"
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <label
+                      for="input-group-1"
+                      class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                    >
+                      {"."}
+                    </label>
+                    <div class="flex">
+                      <span class="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 rounded-l-md border border-r-0 border-gray-300 dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
+                        Rp
+                      </span>
+                      <input
+                        type="number"
+                        id="website-admin"
+                        class="rounded-none rounded-r-lg bg-gray-50 border text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        placeholder="Sampai"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Rentang Volume USDT */}
+                  <div>
+                    <label
+                      for="input-group-1"
+                      class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                    >
+                      Rentang Volume (USDT)
+                    </label>
+                    <div class="flex">
+                      <span class="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 rounded-l-md border border-r-0 border-gray-300 dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
+                        T
+                      </span>
+                      <input
+                        type="number"
+                        id="website-admin"
+                        class="rounded-none rounded-r-lg bg-gray-50 border text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        placeholder="Dari"
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <label
+                      for="input-group-1"
+                      class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                    >
+                      {"."}
+                    </label>
+                    <div class="flex">
+                      <span class="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 rounded-l-md border border-r-0 border-gray-300 dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
+                        T
+                      </span>
+                      <input
+                        type="number"
+                        id="website-admin"
+                        class="rounded-none rounded-r-lg bg-gray-50 border text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        placeholder="Sampai"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Rentang Last Buy IDR */}
+                  <div>
+                    <label
+                      for="input-group-1"
+                      class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                    >
+                      Rentang Last Buy (IDR)
+                    </label>
+                    <div class="flex">
+                      <span class="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 rounded-l-md border border-r-0 border-gray-300 dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
+                        Rp
+                      </span>
+                      <input
+                        type="number"
+                        id="website-admin"
+                        class="rounded-none rounded-r-lg bg-gray-50 border text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        placeholder="Dari"
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <label
+                      for="input-group-1"
+                      class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                    >
+                      {"."}
+                    </label>
+                    <div class="flex">
+                      <span class="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 rounded-l-md border border-r-0 border-gray-300 dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
+                        Rp
+                      </span>
+                      <input
+                        type="number"
+                        id="website-admin"
+                        class="rounded-none rounded-r-lg bg-gray-50 border text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        placeholder="Sampai"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Rentang Last Sell */}
+                  <div>
+                    <label
+                      for="input-group-1"
+                      class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                    >
+                      Rentang Last Sell (IDR)
+                    </label>
+                    <div class="flex">
+                      <span class="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 rounded-l-md border border-r-0 border-gray-300 dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
+                        T
+                      </span>
+                      <input
+                        type="number"
+                        id="website-admin"
+                        class="rounded-none rounded-r-lg bg-gray-50 border text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        placeholder="Dari"
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <label
+                      for="input-group-1"
+                      class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                    >
+                      {"."}
+                    </label>
+                    <div class="flex">
+                      <span class="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 rounded-l-md border border-r-0 border-gray-300 dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
+                        T
+                      </span>
+                      <input
+                        type="number"
+                        id="website-admin"
+                        class="rounded-none rounded-r-lg bg-gray-50 border text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        placeholder="Sampai"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </form>
             </div>
 
             <div class="flex items-center p-6 space-x-2 rounded-b border-t border-gray-200 dark:border-gray-600">

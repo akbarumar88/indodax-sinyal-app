@@ -9,8 +9,8 @@ import Datepicker from "flowbite-datepicker/Datepicker"
 import DateRangePicker from "flowbite-datepicker/DateRangePicker"
 import FilterPeriode from "./components/FilterPeriode"
 import FilterView from "./components/FilterView"
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCoffee, faFilter, faSearch } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faCoffee, faFilter, faSearch } from "@fortawesome/free-solid-svg-icons"
 
 function App() {
   let [data, setData] = useState([])
@@ -34,6 +34,20 @@ function App() {
   //   // options
   // })
   useEffect(() => {
+    window.addEventListener("keydown", (e) => {
+      // console.log("keypress event", e)
+      switch (e.code) {
+        case "Escape":
+          setFilterViewVisible(false)
+
+          break
+
+        case "KeyF":
+          setFilterViewVisible(!false)
+        default:
+          break
+      }
+    })
     const data = {
       page,
       tglawal: tglAwal,
@@ -66,7 +80,7 @@ function App() {
     // setTglAkhir(tglAkhirTemp)
   }
 
-  console.log('fvv',filterViewVisible)
+  console.log("fvv", filterViewVisible)
   return (
     <React.Fragment>
       {/* Component Modal */}
@@ -99,7 +113,7 @@ function App() {
             setFilterViewVisible(true)
           }}
         >
-          Filter
+          Filter (F)
           <FontAwesomeIcon className="ml-2" icon={faFilter} />
         </button>
 
