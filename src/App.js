@@ -35,7 +35,7 @@ function App() {
   let [lastSellDari, setLastSellDari] = useState(null)
   let [lastSellSampai, setLastSellSampai] = useState(null)
 
-  console.log("currentPage", page)
+  // console.log("currentPage", page)
 
   let perPage = 10
   let firstPage = page == 1
@@ -44,10 +44,6 @@ function App() {
   let noFrom = offset + 1,
     noTo = offset + data.length
 
-  // const dateRangePickerEl = document.getElementById("dateRangePickerId")
-  // new DateRangePicker(dateRangePickerEl, {
-  //   // options
-  // })
   useEffect(() => {
     window.addEventListener("keydown", (e) => {
       // console.log("keypress event", e)
@@ -124,7 +120,6 @@ function App() {
     // setTglAkhir(tglAkhirTemp)
   }
 
-  console.log("fvv", filterViewVisible)
   return (
     <React.Fragment>
       {/* Component Modal */}
@@ -156,6 +151,7 @@ function App() {
           setLastBuySampai(lastBuySampai)
           setLastSellDari(lastSellDari)
           setLastSellSampai(lastSellSampai)
+          setPage(1) // Kembalikan Page ke Halaman Pertama
         }}
         onBtnClosePress={() => {
           setFilterViewVisible(false)
@@ -178,7 +174,7 @@ function App() {
 
         <button
           type="button"
-          class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 ml-4 dark:bg-purple-700 dark:hover:bg-purple-800 focus:outline-none dark:focus:ring-purple-900 mb-4"
+          className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 ml-4 dark:bg-purple-700 dark:hover:bg-purple-800 focus:outline-none dark:focus:ring-purple-900 mb-4"
           onClick={() => {
             setFilterViewVisible(true)
           }}
@@ -374,9 +370,9 @@ function App() {
               xmlns="http://www.w3.org/2000/svg"
             >
               <path
-                fill-rule="evenodd"
+                fillRule="evenodd"
                 d="M7.707 14.707a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l2.293 2.293a1 1 0 010 1.414z"
-                clip-rule="evenodd"
+                clipRule="evenodd"
               ></path>
             </svg>
             Prev
@@ -398,9 +394,9 @@ function App() {
               xmlns="http://www.w3.org/2000/svg"
             >
               <path
-                fill-rule="evenodd"
+                fillRule="evenodd"
                 d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z"
-                clip-rule="evenodd"
+                clipRule="evenodd"
               ></path>
             </svg>
           </button>
@@ -426,9 +422,9 @@ function App() {
               xmlns="http://www.w3.org/2000/svg"
             >
               <path
-                fill-rule="evenodd"
+                fillRule="evenodd"
                 d="M7.707 14.707a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l2.293 2.293a1 1 0 010 1.414z"
-                clip-rule="evenodd"
+                clipRule="evenodd"
               ></path>
             </svg>
             Go to First Page
@@ -453,9 +449,9 @@ function App() {
               xmlns="http://www.w3.org/2000/svg"
             >
               <path
-                fill-rule="evenodd"
+                fillRule="evenodd"
                 d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z"
-                clip-rule="evenodd"
+                clipRule="evenodd"
               ></path>
             </svg>
           </button>
