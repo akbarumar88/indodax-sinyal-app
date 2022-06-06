@@ -20,6 +20,21 @@ function App() {
   let [tglAwal, setTglAwal] = useState("")
   let [tglAkhir, setTglAkhir] = useState("")
   let [filterViewVisible, setFilterViewVisible] = useState(false)
+  let [hargaUSDTDari, setHargaUSDTDari] = useState(null)
+  let [hargaUSDTSampai, setHargaUSDTSampai] = useState(null)
+  let [hargaIDRDari, setHargaIDRDari] = useState(null)
+  let [hargaIDRSampai, setHargaIDRSampai] = useState(null)
+
+  let [volUSDTDari, setVolUSDTDari] = useState(null)
+  let [volUSDTSampai, setVolUSDTSampai] = useState(null)
+  let [volIDRDari, setVolIDRDari] = useState(null)
+  let [volIDRSampai, setVolIDRSampai] = useState(null)
+
+  let [lastBuyDari, setLastBuyDari] = useState(null)
+  let [lastBuySampai, setLastBuySampai] = useState(null)
+  let [lastSellDari, setLastSellDari] = useState(null)
+  let [lastSellSampai, setLastSellSampai] = useState(null)
+
   console.log("currentPage", page)
 
   let perPage = 10
@@ -52,8 +67,21 @@ function App() {
       page,
       tglawal: tglAwal,
       tglakhir: tglAkhir,
+      ...(hargaUSDTDari ? { hargaUSDTDari } : {}),
+      ...(hargaUSDTSampai ? { hargaUSDTSampai } : {}),
+      ...(hargaIDRDari ? { hargaIDRDari } : {}),
+      ...(hargaIDRSampai ? { hargaIDRSampai } : {}),
+      ...(volUSDTDari ? { volUSDTDari } : {}),
+      ...(volUSDTSampai ? { volUSDTSampai } : {}),
+      ...(volIDRDari ? { volIDRDari } : {}),
+      ...(volIDRSampai ? { volIDRSampai } : {}),
+      ...(lastBuyDari ? { lastBuyDari } : {}),
+      ...(lastBuySampai ? { lastBuySampai } : {}),
+      ...(lastSellDari ? { lastSellDari } : {}),
+      ...(lastSellSampai ? { lastSellSampai } : {}),
     }
     const params = new URLSearchParams(data)
+    console.log(params.toString())
     axios
       .get(`${BASE_API}/all?${params.toString()}`)
       .then(({ data: res }) => {
@@ -65,7 +93,23 @@ function App() {
       .catch((err) => {
         console.log("Err saat get data all", err.response?.data ?? err.message)
       })
-  }, [page, tglAwal, tglAkhir])
+  }, [
+    page,
+    tglAwal,
+    tglAkhir,
+    hargaUSDTDari,
+    hargaUSDTSampai,
+    hargaIDRDari,
+    hargaIDRSampai,
+    volUSDTDari,
+    volUSDTSampai,
+    volIDRDari,
+    volIDRSampai,
+    lastBuyDari,
+    lastBuySampai,
+    lastSellDari,
+    lastSellSampai,
+  ])
 
   const nextPage = () => {
     setPage(page + 1)
@@ -86,7 +130,33 @@ function App() {
       {/* Component Modal */}
       <FilterView
         visible={filterViewVisible}
-        onSubmit={() => {}}
+        onSubmit={({
+          hargaUSDTDari,
+          hargaUSDTSampai,
+          hargaIDRDari,
+          hargaIDRSampai,
+          volUSDTDari,
+          volUSDTSampai,
+          volIDRDari,
+          volIDRSampai,
+          lastBuyDari,
+          lastBuySampai,
+          lastSellDari,
+          lastSellSampai,
+        }) => {
+          setHargaUSDTDari(hargaUSDTDari)
+          setHargaUSDTSampai(hargaUSDTSampai)
+          setHargaIDRDari(hargaIDRDari)
+          setHargaIDRSampai(hargaIDRSampai)
+          setVolUSDTDari(volUSDTDari)
+          setVolUSDTSampai(volUSDTSampai)
+          setVolIDRDari(volIDRDari)
+          setVolIDRSampai(volIDRSampai)
+          setLastBuyDari(lastBuyDari)
+          setLastBuySampai(lastBuySampai)
+          setLastSellDari(lastSellDari)
+          setLastSellSampai(lastSellSampai)
+        }}
         onBtnClosePress={() => {
           setFilterViewVisible(false)
         }}
@@ -194,7 +264,7 @@ function App() {
                       lastbuy,
                       lastsell,
                       jenis,
-                    }) => {
+                    }, i) => {
                       let warnaJenis
                       switch (jenis) {
                         case "crash":
@@ -217,7 +287,7 @@ function App() {
                         warnaBaris = "bg-fuchsia-700"
                       }
                       return (
-                        <tr className={`${warnaBaris}`}>
+                        <tr className={`${warnaBaris}`} key={i}>
                           <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                             {id}
                           </th>
