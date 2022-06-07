@@ -35,6 +35,9 @@ function App() {
   let [lastSellDari, setLastSellDari] = useState(null)
   let [lastSellSampai, setLastSellSampai] = useState(null)
 
+  let [jenis, setJenis] = useState(null)
+  let [level, setLevel] = useState(null)
+
   // console.log("currentPage", page)
 
   let perPage = 10
@@ -63,23 +66,27 @@ function App() {
       page,
       tglawal: tglAwal,
       tglakhir: tglAkhir,
-      ...(hargaUSDTDari ? { hargaUSDTDari } : {}),
-      ...(hargaUSDTSampai ? { hargaUSDTSampai } : {}),
-      ...(hargaIDRDari ? { hargaIDRDari } : {}),
-      ...(hargaIDRSampai ? { hargaIDRSampai } : {}),
-      ...(volUSDTDari ? { volUSDTDari } : {}),
-      ...(volUSDTSampai ? { volUSDTSampai } : {}),
-      ...(volIDRDari ? { volIDRDari } : {}),
-      ...(volIDRSampai ? { volIDRSampai } : {}),
-      ...(lastBuyDari ? { lastBuyDari } : {}),
-      ...(lastBuySampai ? { lastBuySampai } : {}),
-      ...(lastSellDari ? { lastSellDari } : {}),
-      ...(lastSellSampai ? { lastSellSampai } : {}),
+      hargaUSDTDari,
+      hargaUSDTSampai,
+      hargaIDRDari,
+      hargaIDRSampai,
+      volUSDTDari,
+      volUSDTSampai,
+      volIDRDari,
+      volIDRSampai,
+      lastBuyDari,
+      lastBuySampai,
+      lastSellDari,
+      lastSellSampai,
+      jenis,
+      level
     }
-    const params = new URLSearchParams(data)
-    console.log(params.toString())
+    // const params = new URLSearchParams(data)
+    // console.log(params.toString())
     axios
-      .get(`${BASE_API}/all?${params.toString()}`)
+      .get(`${BASE_API}/all`, {
+        params: data,
+      })
       .then(({ data: res }) => {
         // console.log("sukses", res)
         setData(res.data)
@@ -105,6 +112,8 @@ function App() {
     lastBuySampai,
     lastSellDari,
     lastSellSampai,
+    jenis,
+    level,
   ])
 
   const nextPage = () => {
@@ -138,6 +147,8 @@ function App() {
           lastBuySampai,
           lastSellDari,
           lastSellSampai,
+          jenis,
+          level,
         }) => {
           setHargaUSDTDari(hargaUSDTDari)
           setHargaUSDTSampai(hargaUSDTSampai)
@@ -151,6 +162,8 @@ function App() {
           setLastBuySampai(lastBuySampai)
           setLastSellDari(lastSellDari)
           setLastSellSampai(lastSellSampai)
+          setJenis(jenis)
+          setLevel(level)
           setPage(1) // Kembalikan Page ke Halaman Pertama
         }}
         onBtnClosePress={() => {
@@ -248,19 +261,22 @@ function App() {
 
                 <tbody>
                   {data.map(
-                    ({
-                      id,
-                      sinyal,
-                      level,
-                      tanggal,
-                      hargaidr,
-                      hargausdt,
-                      volidr,
-                      volusdt,
-                      lastbuy,
-                      lastsell,
-                      jenis,
-                    }, i) => {
+                    (
+                      {
+                        id,
+                        sinyal,
+                        level,
+                        tanggal,
+                        hargaidr,
+                        hargausdt,
+                        volidr,
+                        volusdt,
+                        lastbuy,
+                        lastsell,
+                        jenis,
+                      },
+                      i
+                    ) => {
                       let warnaJenis
                       switch (jenis) {
                         case "crash":

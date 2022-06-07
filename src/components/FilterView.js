@@ -23,6 +23,9 @@ export default function FilterView(props) {
   let [lastSellDari, setLastSellDari] = useState(null)
   let [lastSellSampai, setLastSellSampai] = useState(null)
 
+  let [level, setLevel] = useState(null)
+  let [jenis, setJenis] = useState(null)
+
   return (
     //  Main modal
     <React.Fragment>
@@ -93,15 +96,15 @@ export default function FilterView(props) {
                         min={0}
                         id="website-admin"
                         className=" p-4 rounded-none rounded-r-lg bg-gray-50 border text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                        placeholder="Dari"
                         onChange={(e) => {
+                          // console.log(e.target.value)
                           let val = e.target.value
-                          setHargaIDRDari(val)
+                          setJenis(val)
                         }}
                       >
-                        <option>Semua</option>
-                        <option>crash</option>
-                        <option>moon</option>
+                        <option value="">Semua</option>
+                        <option value="crash">crash</option>
+                        <option value="moon">moon</option>
                       </select>
                     </div>
                   </div>
@@ -123,36 +126,36 @@ export default function FilterView(props) {
                         min={0}
                         id="website-admin"
                         className="rounded-none rounded-r-lg bg-gray-50 border text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                        placeholder="Sampai"
                         onChange={(e) => {
                           let val = e.target.value
-                          setHargaIDRSampai(val)
+                          setLevel(val)
                         }}
                       >
-                        <option>Crash1</option>
-                        <option>Wajar2</option>
-                        <option>Recover1</option>
-                        <option>Recover2</option>
-                        <option>Moon1</option>
-                        <option>Wajar1</option>
-                        <option>Moon2</option>
-                        <option>SuperMoon1</option>
-                        <option>sama</option>
-                        <option>Crash2</option>
-                        <option>SuperCrash1</option>
-                        <option>SuperCrash2</option>
-                        <option>MegaCrash1</option>
-                        <option>MegaCrash2</option>
-                        <option>UltraCrash1</option>
-                        <option>UltraCrash2</option>
-                        <option>GoldenCrash1</option>
-                        <option>GoldenCrash2</option>
-                        <option>DiamondCrash</option>
-                        <option>SuperMoon2</option>
-                        <option>MegaMoon1</option>
-                        <option>MegaMoon2</option>
-                        <option>UltraMoon1</option>
-                        <option>UltraMoon2</option>
+                        <option value="">Semua</option>
+                        <option value={"Crash1"}>Crash1</option>
+                        <option value={"Wajar2"}>Wajar2</option>
+                        <option value={"Recover1"}>Recover1</option>
+                        <option value={"Recover2"}>Recover2</option>
+                        <option value={"Moon1"}>Moon1</option>
+                        <option value={"Wajar1"}>Wajar1</option>
+                        <option value={"Moon2"}>Moon2</option>
+                        <option value={"SuperMoon1"}>SuperMoon1</option>
+                        <option value={"sama"}>sama</option>
+                        <option value={"Crash2"}>Crash2</option>
+                        <option value={"SuperCrash1"}>SuperCrash1</option>
+                        <option value={"SuperCrash2"}>SuperCrash2</option>
+                        <option value={"MegaCrash1"}>MegaCrash1</option>
+                        <option value={"MegaCrash2"}>MegaCrash2</option>
+                        <option value={"UltraCrash1"}>UltraCrash1</option>
+                        <option value={"UltraCrash2"}>UltraCrash2</option>
+                        <option value={"GoldenCrash1"}>GoldenCrash1</option>
+                        <option value={"GoldenCrash2"}>GoldenCrash2</option>
+                        <option value={"DiamondCrash"}>DiamondCrash</option>
+                        <option value={"SuperMoon2"}>SuperMoon2</option>
+                        <option value={"MegaMoon1"}>MegaMoon1</option>
+                        <option value={"MegaMoon2"}>MegaMoon2</option>
+                        <option value={"UltraMoon1"}>UltraMoon1</option>
+                        <option value={"UltraMoon2"}>UltraMoon2</option>
                       </select>
                     </div>
                   </div>
@@ -466,20 +469,20 @@ export default function FilterView(props) {
                 type="button"
                 className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                 onClick={() => {
-                  console.log({
-                    hargaUSDTDari,
-                    hargaUSDTSampai,
-                    hargaIDRDari,
-                    hargaIDRSampai,
-                    volUSDTDari,
-                    volUSDTSampai,
-                    volIDRDari,
-                    volIDRSampai,
-                    lastBuyDari,
-                    lastBuySampai,
-                    lastSellDari,
-                    lastSellSampai,
-                  })
+                  // console.log({
+                  //   hargaUSDTDari,
+                  //   hargaUSDTSampai,
+                  //   hargaIDRDari,
+                  //   hargaIDRSampai,
+                  //   volUSDTDari,
+                  //   volUSDTSampai,
+                  //   volIDRDari,
+                  //   volIDRSampai,
+                  //   lastBuyDari,
+                  //   lastBuySampai,
+                  //   lastSellDari,
+                  //   lastSellSampai,
+                  // })
                   props.onSubmit?.({
                     hargaUSDTDari,
                     hargaUSDTSampai,
@@ -493,6 +496,8 @@ export default function FilterView(props) {
                     lastBuySampai,
                     lastSellDari,
                     lastSellSampai,
+                    jenis,
+                    level,
                   })
                   props.onBtnClosePress()
                 }}
