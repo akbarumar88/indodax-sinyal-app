@@ -5,7 +5,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import classNames from "classnames"
-import React, {useState} from "react"
+import React, { useState } from "react"
 
 export default function FilterView(props) {
   let [hargaUSDTDari, setHargaUSDTDari] = useState(null)
@@ -40,7 +40,7 @@ export default function FilterView(props) {
           background: "rgba(0,0,0,0.5)",
         }}
       >
-        <div className="relative p-4 w-full max-w-2xl h-full md:h-auto">
+        <div className="relative p-4 w-full max-w-2xl h-full">
           <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
             <div className="flex justify-between items-center p-5 rounded-t border-b dark:border-gray-600">
               <h3 className="text-xl font-medium text-gray-900 dark:text-white">
@@ -67,9 +67,96 @@ export default function FilterView(props) {
               </button>
             </div>
 
-            <div className="p-6 space-y-6">
+            <div
+              className="p-6 space-y-6 modal-body"
+              style={{
+                maxHeight: "calc(100vh - 210px)",
+                overflowY: "auto",
+              }}
+            >
               <form>
                 <div className="grid gap-6 mb-6 lg:grid-cols-2">
+                  {/* Jenis */}
+                  <div>
+                    <label
+                      htmlFor="input-group-1"
+                      className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                    >
+                      Jenis
+                    </label>
+                    <div className="flex">
+                      <span className="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 rounded-l-md border border-r-0 border-gray-300 dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
+                        Rp
+                      </span>
+                      <select
+                        type="number"
+                        min={0}
+                        id="website-admin"
+                        className=" p-4 rounded-none rounded-r-lg bg-gray-50 border text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        placeholder="Dari"
+                        onChange={(e) => {
+                          let val = e.target.value
+                          setHargaIDRDari(val)
+                        }}
+                      >
+                        <option>Semua</option>
+                        <option>crash</option>
+                        <option>moon</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  {/* Level */}
+                  <div>
+                    <label
+                      htmlFor="input-group-1"
+                      className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                    >
+                      Level
+                    </label>
+                    <div className="flex">
+                      <span className="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 rounded-l-md border border-r-0 border-gray-300 dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
+                        Rp
+                      </span>
+                      <select
+                        type="number"
+                        min={0}
+                        id="website-admin"
+                        className="rounded-none rounded-r-lg bg-gray-50 border text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        placeholder="Sampai"
+                        onChange={(e) => {
+                          let val = e.target.value
+                          setHargaIDRSampai(val)
+                        }}
+                      >
+                        <option>Crash1</option>
+                        <option>Wajar2</option>
+                        <option>Recover1</option>
+                        <option>Recover2</option>
+                        <option>Moon1</option>
+                        <option>Wajar1</option>
+                        <option>Moon2</option>
+                        <option>SuperMoon1</option>
+                        <option>sama</option>
+                        <option>Crash2</option>
+                        <option>SuperCrash1</option>
+                        <option>SuperCrash2</option>
+                        <option>MegaCrash1</option>
+                        <option>MegaCrash2</option>
+                        <option>UltraCrash1</option>
+                        <option>UltraCrash2</option>
+                        <option>GoldenCrash1</option>
+                        <option>GoldenCrash2</option>
+                        <option>DiamondCrash</option>
+                        <option>SuperMoon2</option>
+                        <option>MegaMoon1</option>
+                        <option>MegaMoon2</option>
+                        <option>UltraMoon1</option>
+                        <option>UltraMoon2</option>
+                      </select>
+                    </div>
+                  </div>
+
                   {/* Rentang harga IDR */}
                   <div>
                     <label
