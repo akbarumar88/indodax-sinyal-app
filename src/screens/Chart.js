@@ -77,10 +77,10 @@ export default function Chart() {
             data={chartData}
             margin={{ top: 5, right: 20, left: 10, bottom: 5 }}
           >
-            <XAxis dataKey="name" />
-            <YAxis />
+            <XAxis dataKey="name" stroke="white" />
+            <YAxis stroke="white" style={{ color: "white" }} />
             <Tooltip />
-            <CartesianGrid stroke="#f5f5f5" />
+            <CartesianGrid stroke="#fff" />
             <Area
               type="monotone"
               dataKey="amt"
