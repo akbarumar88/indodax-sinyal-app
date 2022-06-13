@@ -4,17 +4,20 @@ import useWindowDimensions from "../helper/useWindowDimensions"
 import axios from "axios"
 import { BASE_API } from "../GlobalVar"
 import ReactLoading from "react-loading"
+import FilterPeriode from "../components/FilterPeriode"
 
 export default function Chart() {
   const { height, width } = useWindowDimensions()
   const [chart1, setChart1] = useState([])
   const [jenis, setJenis] = useState("moon")
   const [loading, setLoading] = useState(true)
+  const [tglAwal, setTglAwal] = useState(null)
+  const [tglAkhir, setTglAkhir] = useState(null)
 
   useEffect(() => {
     setLoading(true)
     axios
-      .get(`${BASE_API}/levelchart`, {
+      .get(`${BASE_API}/levelchartdate`, {
         params: {
           level: [
             "Crash1",
@@ -43,6 +46,8 @@ export default function Chart() {
             "UltraMoon2",
           ],
           jenis,
+          tglawal: tglAwal,
+          tglakhir: tglAkhir,
         },
       })
       .then(({ data: res }) => {
@@ -59,7 +64,7 @@ export default function Chart() {
       })
 
     return () => {}
-  }, [jenis])
+  }, [jenis, tglAwal, tglAkhir])
 
   return (
     <Fragment>
@@ -90,6 +95,14 @@ export default function Chart() {
         let color = ["magenta", "#ff7300", "#387908", "lightskyblue", "yellow"]
         return (
           <Fragment>
+            {/* Filter Periode */}
+            <FilterPeriode
+              onSubmit={(fromDate, toDate) => {
+                // cari()
+                setTglAwal(fromDate)
+                setTglAkhir(toDate)
+              }}
+            />
             {/* Jenis */}
             <div className="grid gap-6 mb-6 lg:grid-cols-4">
               <div>
@@ -115,8 +128,12 @@ export default function Chart() {
                     }}
                     defaultValue={jenis}
                   >
-                    <option value="crash">crash</option>
-                    <option value="moon">moon</option>
+                    <option value="crash">
+                      crash
+                    </option>
+                    <option value="moon">
+                      moon
+                    </option>
                   </select>
                 </div>
               </div>
@@ -128,7 +145,7 @@ export default function Chart() {
                 <Fragment key={i}>
                   <div className="mx-6 mb-4">
                     {item.level.map((area, k) => (
-                      <div className="flex">
+                      <div className="flex" key={k}>
                         <span
                           className="p-2"
                           style={{ backgroundColor: color[k] }}
