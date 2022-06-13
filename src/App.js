@@ -10,6 +10,7 @@ import {
 } from "react-router-dom"
 import Home from "./screens/Home"
 import Chart from "./screens/Chart"
+import ChartJenis from "./screens/ChartJenis"
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/chart" element={<Chart />} />
+          <Route path="/chartjenis" element={<ChartJenis />} />
         </Routes>
       </BrowserRouter>
     </React.Fragment>
