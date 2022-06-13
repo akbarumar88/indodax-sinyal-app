@@ -23,83 +23,106 @@ import { BASE_API } from "../GlobalVar"
 
 export default function Chart() {
   const { height, width } = useWindowDimensions()
+  const [chart1, setChart1] = useState([])
+
+  useEffect(() => {
+    axios
+      .get(`${BASE_API}/levelchart`, {
+        params: {
+          level: [
+            "Crash1",
+            "Wajar2",
+            "Recover1",
+            "Recover2",
+            "Moon1",
+            "Wajar1",
+            "Moon2",
+            "SuperMoon1",
+            "sama",
+            "Crash2",
+            "SuperCrash1",
+            "SuperCrash2",
+            "MegaCrash1",
+            "MegaCrash2",
+            "UltraCrash1",
+            "UltraCrash2",
+            "GoldenCrash1",
+            "GoldenCrash2",
+            "DiamondCrash",
+            "SuperMoon2",
+            "MegaMoon1",
+            "MegaMoon2",
+            "UltraMoon1",
+            "UltraMoon2",
+          ],
+        },
+      })
+      .then(({ data: res }) => {
+        console.log("sukses", res)
+        setChart1(res.data)
+      })
+      .catch((err) => {
+        console.log("Err saat get Chart1", err.response?.data ?? err.message)
+      })
+
+    return () => {}
+  }, [])
+
   return (
     <Fragment>
       {(() => {
         const chartData = [
+          { level: ["Crash1", "Wajar2", "Recover1", "Recover2", "Moon1"] },
+          { level: ["Wajar1", "Moon2", "SuperMoon1", "sama", "Crash2"] },
           {
-            name: "Page A",
-            uv: 4000,
-            pv: 2400,
-            amt: 2400,
+            level: [
+              "SuperCrash1",
+              "SuperCrash2",
+              "MegaCrash1",
+              "MegaCrash2",
+              "UltraCrash1",
+            ],
           },
           {
-            name: "Page B",
-            uv: 3000,
-            pv: 1398,
-            amt: 2210,
+            level: [
+              "UltraCrash2",
+              "GoldenCrash1",
+              "GoldenCrash2",
+              "DiamondCrash",
+              "SuperMoon2",
+            ],
           },
-          {
-            name: "Page C",
-            uv: 2000,
-            pv: 9800,
-            amt: 2290,
-          },
-          {
-            name: "Page D",
-            uv: 2780,
-            pv: 3908,
-            amt: 2000,
-          },
-          {
-            name: "Page E",
-            uv: 1890,
-            pv: 4800,
-            amt: 2181,
-          },
-          {
-            name: "Page F",
-            uv: 2390,
-            pv: 3800,
-            amt: 2500,
-          },
-          {
-            name: "Page G",
-            uv: 3490,
-            pv: 4300,
-            amt: 2100,
-          },
+          { level: ["MegaMoon1", "MegaMoon2", "UltraMoon1", "UltraMoon2"] },
         ]
+        let color = ["magenta", "#ff7300", "#387908", "lightskyblue", "yellow"]
         return (
-          <AreaChart
-            width={width - 100}
-            height={400}
-            data={chartData}
-            margin={{ top: 5, right: 20, left: 10, bottom: 5 }}
-          >
-            <XAxis dataKey="name" stroke="white" />
-            <YAxis stroke="white" style={{ color: "white" }} />
-            <Tooltip />
-            <CartesianGrid stroke="#fff" />
-            <Area
-              type="monotone"
-              dataKey="amt"
-              stroke="magenta"
-              fill="magenta"
-            />
-            <Area
-              type="monotone"
-              dataKey="uv"
-              stroke="#ff7300"
-              fill="#ff7300"
-            />
-            <Area
-              type="monotone"
-              dataKey="pv"
-              stroke="#387908"
-              fill="#387908"
-            />
-          </AreaChart>
+          <Fragment>
+            {chartData.map((item, i) => {
+              return (
+                <AreaChart
+                  key={i}
+                  width={width - 100}
+                  height={400}
+                  data={chart1}
+                  margin={{ top: 5, right: 20, left: 10, bottom: 5 }}
+                >
+                  <XAxis dataKey="periode" stroke="white" />
+                  <YAxis stroke="white" style={{ color: "white" }} />
+                  <Tooltip />
+                  <CartesianGrid stroke="#fff" />
+                  {item.level.map((area, j) => (
+                    <Area
+                      key={j}
+                      type="monotone"
+                      dataKey={area}
+                      stroke={color[j]}
+                      fill={color[j]}
+                    />
+                  ))}
+                </AreaChart>
+              )
+            })}
+          </Fragment>
         )
       })()}
     </Fragment>
