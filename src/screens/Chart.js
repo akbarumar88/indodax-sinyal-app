@@ -99,27 +99,40 @@ export default function Chart() {
           <Fragment>
             {chartData.map((item, i) => {
               return (
-                <AreaChart
-                  key={i}
-                  width={width - 100}
-                  height={400}
-                  data={chart1}
-                  margin={{ top: 5, right: 20, left: 10, bottom: 5 }}
-                >
-                  <XAxis dataKey="periode" stroke="white" />
-                  <YAxis stroke="white" style={{ color: "white" }} />
-                  <Tooltip />
-                  <CartesianGrid stroke="#fff" />
-                  {item.level.map((area, j) => (
-                    <Area
-                      key={j}
-                      type="monotone"
-                      dataKey={area}
-                      stroke={color[j]}
-                      fill={color[j]}
-                    />
-                  ))}
-                </AreaChart>
+                <Fragment>
+                  <div className="mx-6 mb-4">
+                    {item.level.map((area, k) => (
+                      <div className="flex">
+                        <span
+                          className="p-2"
+                          style={{ backgroundColor: color[k] }}
+                        ></span>
+                        <p className="text-white ml-2 text-xs">{area}</p>
+                      </div>
+                    ))}
+                  </div>
+                  <AreaChart
+                    key={i}
+                    width={width - 100}
+                    height={400}
+                    data={chart1}
+                    margin={{ top: 5, right: 20, left: 10, bottom: 5 }}
+                  >
+                    <XAxis dataKey="periode" stroke="white" />
+                    <YAxis stroke="white" style={{ color: "white" }} />
+                    <Tooltip />
+                    <CartesianGrid stroke="#fff" />
+                    {item.level.map((area, j) => (
+                      <Area
+                        key={j}
+                        type="monotone"
+                        dataKey={area}
+                        stroke={color[j]}
+                        fill={color[j]}
+                      />
+                    ))}
+                  </AreaChart>
+                </Fragment>
               )
             })}
           </Fragment>
