@@ -12,6 +12,7 @@ import Home from "./screens/Home"
 import Chart from "./screens/Chart"
 import ChartJenis from "./screens/ChartJenis"
 import ChartJenisDate from "./screens/ChartJenisDate"
+import ChartVolumeDate from "./screens/ChartVolumeDate"
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
           <Route path="/chart" element={<Chart />} />
           <Route path="/chartjenis" element={<ChartJenis />} />
           <Route path="/chartjenisdate" element={<ChartJenisDate />} />
+          <Route path="/chartvolumedate" element={<ChartVolumeDate />} />
         </Routes>
       </BrowserRouter>
     </React.Fragment>
