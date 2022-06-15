@@ -5,11 +5,13 @@ import axios from "axios"
 import { BASE_API } from "../GlobalVar"
 import ReactLoading from "react-loading"
 import FilterPeriode from "../components/FilterPeriode"
+import { toCurrency } from "../helper/basic_helper"
 
 export default function Chart() {
   const { height, width } = useWindowDimensions()
   const [chart1, setChart1] = useState([])
   const [jenis, setJenis] = useState("moon")
+  const [volume, setVolume] = useState("idr")
   const [loading, setLoading] = useState(true)
   const [tglAwal, setTglAwal] = useState(null)
   const [tglAkhir, setTglAkhir] = useState(null)
@@ -48,6 +50,7 @@ export default function Chart() {
           jenis,
           tglawal: tglAwal,
           tglakhir: tglAkhir,
+          volume
         },
       })
       .then(({ data: res }) => {
@@ -64,7 +67,7 @@ export default function Chart() {
       })
 
     return () => {}
-  }, [jenis, tglAwal, tglAkhir])
+  }, [jenis, tglAwal, tglAkhir, volume])
 
   return (
     <Fragment>
@@ -103,34 +106,69 @@ export default function Chart() {
                 setTglAkhir(toDate)
               }}
             />
-            {/* Jenis */}
-            <div className="grid gap-6 mb-6 lg:grid-cols-4">
-              <div>
-                <label
-                  htmlFor="input-group-1"
-                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                >
-                  Jenis
-                </label>
-                <div className="flex">
-                  <span className="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 rounded-l-md border border-r-0 border-gray-300 dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
-                    Rp
-                  </span>
-                  <select
-                    type="number"
-                    min={0}
-                    id="website-admin"
-                    className=" p-4 rounded-none rounded-r-lg bg-gray-50 border text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    onChange={(e) => {
-                      // console.log(e.target.value)
-                      let val = e.target.value
-                      setJenis(val)
-                    }}
-                    defaultValue={jenis}
+
+            <div className="flex p-4" style={{width:'50vw'}}>
+              {/* Jenis */}
+              <div className="flex-1 mr-4">
+                <div>
+                  <label
+                    htmlFor="input-group-1"
+                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
                   >
-                    <option value="crash">crash</option>
-                    <option value="moon">moon</option>
-                  </select>
+                    Jenis
+                  </label>
+                  <div className="flex">
+                    <span className="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 rounded-l-md border border-r-0 border-gray-300 dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
+                      Rp
+                    </span>
+                    <select
+                      type="number"
+                      min={0}
+                      id="website-admin"
+                      className=" p-4 rounded-none rounded-r-lg bg-gray-50 border text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                      onChange={(e) => {
+                        // console.log(e.target.value)
+                        let val = e.target.value
+                        setJenis(val)
+                      }}
+                      defaultValue={jenis}
+                    >
+                      <option value="crash">crash</option>
+                      <option value="moon">moon</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              {/* Volume */}
+              <div className="flex-1 mr-4">
+                <div>
+                  <label
+                    htmlFor="input-group-1"
+                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                  >
+                    Jenis Volume
+                  </label>
+                  <div className="flex">
+                    <span className="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 rounded-l-md border border-r-0 border-gray-300 dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
+                      Vol
+                    </span>
+                    <select
+                      type="number"
+                      min={0}
+                      id="website-admin"
+                      className=" p-4 rounded-none rounded-r-lg bg-gray-50 border text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                      onChange={(e) => {
+                        // console.log(e.target.value)
+                        let val = e.target.value
+                        setVolume(val)
+                      }}
+                      defaultValue={volume}
+                    >
+                      <option value="idr">IDR</option>
+                      <option value="usdt">USDT</option>
+                    </select>
+                  </div>
                 </div>
               </div>
             </div>
@@ -159,7 +197,9 @@ export default function Chart() {
                   >
                     <XAxis dataKey="periode" stroke="white" />
                     <YAxis stroke="white" style={{ color: "white" }} />
-                    <Tooltip />
+                    <Tooltip formatter={(value, name, props) => { 
+                      return toCurrency(value)
+                     }} />
                     <CartesianGrid stroke="#fff" />
                     {item.level.map((area, j) => (
                       <Area

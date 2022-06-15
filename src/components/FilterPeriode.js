@@ -65,6 +65,10 @@ export default function FilterPeriode(props) {
 
       <button
         onClick={() => {
+          if (tglAwalTemp > tglAkhirTemp) {
+            alert("Tanggal awal tidak boleh lebih besar dari Tanggal akhir.")
+            return
+          }
           props.onSubmit(tglAwalTemp, tglAkhirTemp)
         }}
         type="button"
