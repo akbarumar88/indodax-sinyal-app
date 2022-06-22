@@ -18,6 +18,11 @@ export default function Chart() {
 
   useEffect(() => {
     setLoading(true)
+
+    fetch(`${BASE_API}/levelchart`)
+      .then((res) => res.json())
+      .then((res) => console.log("Berhasil get data pakai fetch cuy", res))
+
     axios
       .get(`${BASE_API}/levelchart`, {
         params: {
