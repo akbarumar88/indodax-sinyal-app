@@ -3,6 +3,7 @@ import { Area, AreaChart, CartesianGrid, Tooltip, XAxis, YAxis } from "recharts"
 import useWindowDimensions from "../helper/useWindowDimensions"
 import axios from "axios"
 import ReactLoading from "react-loading"
+import QueryString from "qs"
 // import dotenv from 'dotenv'
 // dotenv.config()
 
@@ -19,7 +20,37 @@ export default function Chart() {
   useEffect(() => {
     setLoading(true)
 
-    fetch(`${BASE_API}/levelchart`)
+    fetch(
+      `${BASE_API}/levelchart?${QueryString.stringify({
+        level: [
+          "Crash1",
+          "Wajar2",
+          "Recover1",
+          "Recover2",
+          "Moon1",
+          "Wajar1",
+          "Moon2",
+          "SuperMoon1",
+          "sama",
+          "Crash2",
+          "SuperCrash1",
+          "SuperCrash2",
+          "MegaCrash1",
+          "MegaCrash2",
+          "UltraCrash1",
+          "UltraCrash2",
+          "GoldenCrash1",
+          "GoldenCrash2",
+          "DiamondCrash",
+          "SuperMoon2",
+          "MegaMoon1",
+          "MegaMoon2",
+          "UltraMoon1",
+          "UltraMoon2",
+        ],
+        jenis,
+      })}`
+    )
       .then((res) => res.json())
       .then((res) => console.log("Berhasil get data pakai fetch cuy", res))
 
@@ -54,6 +85,7 @@ export default function Chart() {
           ],
           jenis,
         },
+        headers: {},
       })
       .then(({ data: res }) => {
         console.log("sukses", res)
