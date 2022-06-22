@@ -62,6 +62,8 @@ export default function Chart() {
       })
       .catch((err) => {
         console.log("Err saat get Chart1", err.response?.data ?? err.message)
+        console.log("Header", err.response.headers)
+        console.log("Status", err.response.status)
         alert(
           "Err saat get Chart1 " + JSON.stringify(err.response?.data),
           err.response?.data ?? err.message
