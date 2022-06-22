@@ -2,9 +2,14 @@ import React, { Fragment, useState, useEffect } from "react"
 import { Area, AreaChart, CartesianGrid, Tooltip, XAxis, YAxis } from "recharts"
 import useWindowDimensions from "../helper/useWindowDimensions"
 import axios from "axios"
-import { BASE_API } from "../GlobalVar"
 import ReactLoading from "react-loading"
+// import dotenv from 'dotenv'
+// dotenv.config()
 
+// import { BASE_API } from "../GlobalVar"
+
+// const { REACT_APP_BASE_API: BASE_API } = process.env
+const BASE_API = process.env.REACT_APP_BASE_API
 export default function Chart() {
   const { height, width } = useWindowDimensions()
   const [chart1, setChart1] = useState([])

@@ -19,7 +19,13 @@ import {
 } from "recharts"
 import useWindowDimensions from "../helper/useWindowDimensions"
 import axios from "axios"
-import { BASE_API } from "../GlobalVar"
+// import { BASE_API } from "../GlobalVar"
+// import dotenv from 'dotenv'
+// dotenv.config()
+
+import env from "react-dotenv";
+const { REACT_APP_BASE_API: BASE_API } = process.env
+// console.log(BASE_API, process.env.REACT_APP_BASE_API)
 
 export default function Chart() {
   const { height, width } = useWindowDimensions()

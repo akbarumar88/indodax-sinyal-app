@@ -19,7 +19,11 @@ import {
 } from "recharts"
 import useWindowDimensions from "../helper/useWindowDimensions"
 import axios from "axios"
-import { BASE_API } from "../GlobalVar"
+// import { BASE_API } from "../GlobalVar"
+// import dotenv from 'dotenv'
+// dotenv.config()
+
+const { REACT_APP_BASE_API: BASE_API } = process.env
 
 export default function Home() {
   let [data, setData] = useState([])
