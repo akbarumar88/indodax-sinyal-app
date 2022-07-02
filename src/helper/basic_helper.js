@@ -1,5 +1,12 @@
 import { useMemo } from "react"
 
+export const empty = (val) => {
+  return (
+    val == "" || val == null || val == undefined || val == false || val == 0
+  )
+}
+
+
 export const formatMoney = (number, places, symbol, thousand, decimal) => {
   number = number || 0
   places = !isNaN((places = Math.abs(places))) ? places : 0

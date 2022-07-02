@@ -1,5 +1,5 @@
 import React, { Fragment, useState, useEffect } from "react"
-import { toCurrency } from "../helper/basic_helper"
+import { empty, toCurrency } from "../helper/basic_helper"
 import Pagination from "../components/Pagination"
 import Datepicker from "flowbite-datepicker/Datepicker"
 import DateRangePicker from "flowbite-datepicker/DateRangePicker"
@@ -19,56 +19,196 @@ import {
 } from "recharts"
 import useWindowDimensions from "../helper/useWindowDimensions"
 import axios from "axios"
+import ReactLoading from "react-loading"
 // import { BASE_API } from "../GlobalVar"
 // import dotenv from 'dotenv'
 // dotenv.config()
 
-import env from "react-dotenv";
+import env from "react-dotenv"
 const { REACT_APP_BASE_API: BASE_API } = process.env
 // console.log(BASE_API, process.env.REACT_APP_BASE_API)
 
 export default function Chart() {
   const { height, width } = useWindowDimensions()
   const [chart1, setChart1] = useState([])
+  const [loadingPart1, setLoadingPart1] = useState(true)
+  const [loadingPart2, setLoadingPart2] = useState(true)
+  const [loadingPart3, setLoadingPart3] = useState(true)
+  const [loadingPart4, setLoadingPart4] = useState(true)
+  const [loadingPart5, setLoadingPart5] = useState(true)
 
   useEffect(() => {
+    console.log("Masuk useEffect gan")
+    axios
+      .get(`${BASE_API}/levelchart`, {
+        params: {
+          level: ["Crash1", "Wajar2", "Recover1", "Recover2", "Moon1"],
+        },
+      })
+      .then(({ data: res }) => {
+        console.log("sukses Part 1", res)
+        if (!chart1.length) {
+          // Jika masih kosong maka langsung di-assign saja
+          setChart1(res.data)
+        } else {
+          // Jika sudah ada isinya, maka concat properti dari hasil api ke data saat ini.
+          let replicate = [...chart1]
+          for (let i = 0; i < replicate.length; i++) {
+            replicate[i] = {
+              ...replicate[i],
+              ...res.data[i],
+            }
+          }
+          setChart1(replicate)
+          console.log(replicate)
+        }
+        setLoadingPart1(false)
+      })
+      .catch((err) => {
+        console.log(
+          "Err saat get Chart1 Part1",
+          err.response?.data ?? err.message
+        )
+      })
+
+    axios
+      .get(`${BASE_API}/levelchart`, {
+        params: {
+          level: ["Wajar1", "Moon2", "SuperMoon1", "sama", "Crash2"],
+        },
+      })
+      .then(({ data: res }) => {
+        console.log("sukses Part 2", res)
+        if (!chart1.length) {
+          // Jika masih kosong maka langsung di-assign saja
+          setChart1(res.data)
+        } else {
+          // Jika sudah ada isinya, maka concat properti dari hasil api ke data saat ini.
+          let replicate = [...chart1]
+          for (let i = 0; i < replicate.length; i++) {
+            replicate[i] = {
+              ...replicate[i],
+              ...res.data[i],
+            }
+          }
+          setChart1(replicate)
+          console.log(replicate)
+        }
+        setLoadingPart2(false)
+      })
+      .catch((err) => {
+        console.log(
+          "Err saat get Chart1 Part 2",
+          err.response?.data ?? err.message
+        )
+      })
+
     axios
       .get(`${BASE_API}/levelchart`, {
         params: {
           level: [
-            "Crash1",
-            "Wajar2",
-            "Recover1",
-            "Recover2",
-            "Moon1",
-            "Wajar1",
-            "Moon2",
-            "SuperMoon1",
-            "sama",
-            "Crash2",
             "SuperCrash1",
             "SuperCrash2",
             "MegaCrash1",
             "MegaCrash2",
             "UltraCrash1",
+          ],
+        },
+      })
+      .then(({ data: res }) => {
+        console.log("sukses Part 3", res)
+        if (!chart1.length) {
+          // Jika masih kosong maka langsung di-assign saja
+          setChart1(res.data)
+        } else {
+          // Jika sudah ada isinya, maka concat properti dari hasil api ke data saat ini.
+          let replicate = [...chart1]
+          for (let i = 0; i < replicate.length; i++) {
+            replicate[i] = {
+              ...replicate[i],
+              ...res.data[i],
+            }
+          }
+          setChart1(replicate)
+          console.log(replicate)
+        }
+        setLoadingPart3(false)
+      })
+      .catch((err) => {
+        console.log(
+          "Err saat get Chart1 Part 3",
+          err.response?.data ?? err.message
+        )
+      })
+
+    axios
+      .get(`${BASE_API}/levelchart`, {
+        params: {
+          level: [
             "UltraCrash2",
             "GoldenCrash1",
             "GoldenCrash2",
             "DiamondCrash",
             "SuperMoon2",
-            "MegaMoon1",
-            "MegaMoon2",
-            "UltraMoon1",
-            "UltraMoon2",
           ],
         },
       })
       .then(({ data: res }) => {
-        console.log("sukses", res)
-        setChart1(res.data)
+        console.log("sukses Part 4", res)
+        if (!chart1.length) {
+          // Jika masih kosong maka langsung di-assign saja
+          setChart1(res.data)
+        } else {
+          // Jika sudah ada isinya, maka concat properti dari hasil api ke data saat ini.
+          let replicate = [...chart1]
+          for (let i = 0; i < replicate.length; i++) {
+            replicate[i] = {
+              ...replicate[i],
+              ...res.data[i],
+            }
+          }
+          setChart1(replicate)
+          console.log(replicate)
+        }
+        setLoadingPart4(false)
       })
       .catch((err) => {
-        console.log("Err saat get Chart1", err.response?.data ?? err.message)
+        console.log(
+          "Err saat get Chart1 Part 4",
+          err.response?.data ?? err.message
+        )
+      })
+
+    axios
+      .get(`${BASE_API}/levelchart`, {
+        params: {
+          level: ["MegaMoon1", "MegaMoon2", "UltraMoon1", "UltraMoon2"],
+        },
+      })
+      .then(({ data: res }) => {
+        console.log("sukses Part 5", res)
+        if (!chart1.length) {
+          // Jika masih kosong maka langsung di-assign saja
+          setChart1(res.data)
+        } else {
+          // Jika sudah ada isinya, maka concat properti dari hasil api ke data saat ini.
+          let replicate = [...chart1]
+          for (let i = 0; i < replicate.length; i++) {
+            replicate[i] = {
+              ...replicate[i],
+              ...res.data[i],
+            }
+          }
+          setChart1(replicate)
+          console.log(replicate)
+        }
+        setLoadingPart5(false)
+      })
+      .catch((err) => {
+        console.log(
+          "Err saat get Chart1 Part 5",
+          err.response?.data ?? err.message
+        )
       })
 
     return () => {}
@@ -103,6 +243,13 @@ export default function Chart() {
         let color = ["magenta", "#ff7300", "#387908", "lightskyblue", "yellow"]
         return (
           <Fragment>
+            {loadingPart1 ||
+            loadingPart2 ||
+            loadingPart3 ||
+            loadingPart4 ||
+            loadingPart5 ? (
+              <ReactLoading type={"balls"} color="#fff" />
+            ) : console.log(chart1)}
             {chartData.map((item, i) => {
               return (
                 <Fragment>

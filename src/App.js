@@ -14,6 +14,8 @@ import ChartJenis from "./screens/ChartJenis"
 import ChartJenisDate from "./screens/ChartJenisDate"
 import ChartVolumeDate from "./screens/ChartVolumeDate"
 import ChartLast from "./screens/ChartLast"
+import Unsur from "./screens/Unsur"
+import Senyawa from "./screens/Senyawa"
 
 function App() {
   return (
@@ -26,6 +28,8 @@ function App() {
           <Route path="/chartjenisdate" element={<ChartJenisDate />} />
           <Route path="/chartvolumedate" element={<ChartVolumeDate />} />
           <Route path="/chartlast" element={<ChartLast />} />
+          <Route path="/unsur" element={<Unsur />} />
+          <Route path="/senyawa" element={<Senyawa />} />
         </Routes>
       </BrowserRouter>
     </React.Fragment>
